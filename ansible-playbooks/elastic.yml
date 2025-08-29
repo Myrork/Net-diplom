@@ -1,0 +1,51 @@
+---
+
+- name: Pull image and and start the container elastic
+  hosts: elastic
+  gather_facts: false # do not collect information about the system
+  become_method: sudo
+  vars_files:
+    - ./templates/vars-elastic.yml 
+  module_defaults:
+    group/community.docker.docker:
+      # Select Docker Daemon on other host
+      docker_host: unix://var/run/docker.sock
+  tasks:
+    - name: Restart Docker safely
+      block:
+        - name: Restart Docker async
+          become: true
+          ansible.builtin.shell: "systemctl restart docker"
+          async: 1 #run the command in the background and immediately return control.
+          poll: 0
+
+        - name: Wait for SSH after restart
+          wait_for_connection:
+            delay: 10
+            timeout: 60
+
+
+    - name: Pull image Elasticsearch
+      community.docker.docker_image_pull:
+        name: bitnami/elasticsearch
+        tag: latest
+
+
+    - name: Start container elastic
+      community.docker.docker_container:
+        image: bitnami/elasticsearch
+        name: elastic-server
+        env:
+          discovery.type: "single-node"
+          ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+          xpack.monitoring.collection.enabled: "true"
+        output_logs: true
+        detach: true
+        ports:
+          - 9200:9200
+        log_driver: "{{ log_driver }}"
+        log_options:
+          max-size: "{{ log_max_size }}"
+          max-file: "{{ log_max_file }}"
+        state: started
+        restart_policy : unless-stopped

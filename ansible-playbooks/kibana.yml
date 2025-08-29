@@ -1,0 +1,22 @@
+---
+
+- name: Deploy Elastic Stack with Filebeat and Kibana
+  hosts: kibana
+  become: true
+  tasks:
+    - name: Pull Kibana image
+      community.docker.docker_image_pull:
+        name: bitnami/kibana
+        tag: latest
+
+    - name: Start Kibana container
+      community.docker.docker_container:
+        name: kibana
+        image: bitnami/kibana:latest
+        env:
+          ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+        ports:
+          - "5601:5601"
+        state: started
+        restart_policy: unless-stopped
+        detach: true

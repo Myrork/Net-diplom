@@ -1,0 +1,34 @@
+---
+- name: Installing and configuring Nginx with a custom page
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Updating the APT cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Installing the Nginx package
+      apt:
+        name: nginx
+        state: present
+
+    - name: Launching and enabling the Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: Deploying a custom index.html through a template
+      template:
+        src:  index.html.j2
+        dest: /var/www/html/index.html
+      notify: Restart Nginx
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+

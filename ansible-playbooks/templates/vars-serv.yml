@@ -1,0 +1,8 @@
+mysql_database: zabbix
+mysql_user: zabbix
+mysql_password: zabbix_pwd
+mysql_root_password: root_pwd
+zbx_server_host: zabbix-server-mysql
+db_server_host: mysql-server
+zabbix_user: "Admin"
+zabbix_password: "zabbix"

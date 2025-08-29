@@ -109,3 +109,19 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 1. Вопросы вида «Ничего не работает. Не запускается. Всё сломалось». Дипломный руководитель не сможет ответить на такой вопрос без дополнительных уточнений. Цените своё время и время других.
 2. Откладывание выполнения дипломной работы на последний момент.
 3. Ожидание моментального ответа на свой вопрос. Дипломные руководители — работающие инженеры, которые занимаются, кроме преподавания, своими проектами. Их время ограничено, поэтому постарайтесь задавать правильные вопросы, чтобы получать быстрые ответы :)
+
+## Результаты дипломной работы
+В  результате выполнения дипломной работы были написаны конфигурационный файл с развертывание нескольких виртуальный машин, на которых были установлены, с помощью ansible-playbook, zabbix, zabbix-agent, elasticsearsh, kibana, filebeat, и nginx, а так же было налажено их взаимодействие.
+
+![alt text](https://github.com/Myrork/Net-giplom/blob/main/images/all-created.png)
+
+![alt text](https://github.com/Myrork/Net-giplom/blob/main/images/hosts.png)
+
+![alt text](https://github.com/Myrork/Net-giplom/blob/main/images/map-network.png)
+
+![alt text](https://github.com/Myrork/Net-giplom/blob/main/images/zabbix-agent.png)
+
+![alt text](https://github.com/Myrork/Net-giplom/blob/main/images/dashboard-web1.png)
+
+![alt text](https://github.com/Myrork/Net-giplom/blob/main/images/dashboard-web2.png)
+

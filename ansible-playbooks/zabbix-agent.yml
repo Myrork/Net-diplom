@@ -1,0 +1,45 @@
+---
+
+- name: Pull and image and start the container zabbix-agent
+  hosts: web
+  gather_facts: false
+  become_method: sudo
+  vars_files:
+    - ./templates/vars-agent.yml
+  module_defaults:
+    group/community.docker.docker:
+      # Select Docker Daemon on other host
+      docker_host: unix://var/run/docker.sock
+  tasks:
+    - name: Restart Docker safely
+      block:
+        - name: Restart Docker async
+          become: true
+          ansible.builtin.shell: "systemctl restart docker"
+          async: 1
+          poll: 0
+
+        - name: Wait for SSH after restart
+          wait_for_connection:
+            delay: 10
+            timeout: 60
+
+    - name: Pull image zabbix-agent
+      community.docker.docker_image_pull:
+        name: zabbix/zabbix-agent
+        tag: alpine-7.0-latest
+
+    - name: Start container zabbix-agent
+      community.docker.docker_container:
+        image: zabbix/zabbix-agent:alpine-7.0-latest
+        name: zabbix-agent
+        output_logs: true
+        detach: true
+        ports: 
+          - 10050:10050
+        state: started
+        env:
+          ZBX_SERVER_HOST: "{{ zabbix_server_host }}"
+          ZABBIX_SERVER_PORT: "{{ zabbix_server_port | string }}"
+        restart_policy: unless-stopped
+

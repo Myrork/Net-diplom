@@ -1,0 +1,108 @@
+---
+
+- name: Pull image and start the container zabbix-server
+  hosts: zabbix
+  gather_facts: false
+  become_method: sudo
+  vars_files:
+    - ./templates/vars-serv.yml
+  module_defaults:
+    group/community.docker.docker:
+      # Select Docker Daemon on other host
+      docker_host: unix://var/run/docker.sock
+  tasks:
+    - name: Restart Docker safely
+      block:
+        - name: Restart Docker async
+          become: true
+          ansible.builtin.shell: "systemctl restart docker"
+          async: 1
+          poll: 0
+
+        - name: Wait for SSH after restart
+          wait_for_connection:
+            delay: 10
+            timeout: 60
+
+    - name: Создать сеть zabbix-net
+      community.docker.docker_network:
+        name: zabbix-net
+        state: present
+        driver: bridge
+        ipam_config:
+          - subnet: 172.20.0.0/16
+            gateway: 172.20.0.1
+
+    - name: Pull image mysql
+      community.docker.docker_image_pull:
+        name: mysql
+        tag: 8.0
+
+    - name: Pull image zabbix-server
+      community.docker.docker_image_pull:
+        name: zabbix/zabbix-server-mysql
+        tag: alpine-7.0-latest
+
+    - name: Pull image zabbix-web
+      community.docker.docker_image_pull:
+        name: zabbix/zabbix-web-nginx-mysql
+        tag: alpine-7.0-latest
+
+    - name: Start container mysql
+      community.docker.docker_container:
+        command: >
+          mysqld
+          --character-set-server=utf8
+          --collation-server=utf8_bin
+        image: mysql:8.0
+        name: mysql-server
+        output_logs: true
+        detach: true
+        env:
+          MYSQL_DATABASE: "{{ mysql_database }}"
+          MYSQL_USER: "{{ mysql_user }}"
+          MYSQL_PASSWORD: "{{ mysql_password }}"
+          MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
+        networks: 
+          - name: zabbix-net
+        state: started
+        restart_policy : unless-stopped
+          
+    - name: Start container zabbix-server
+      community.docker.docker_container:
+        image: zabbix/zabbix-server-mysql:alpine-7.0-latest
+        name: zabbix-server-mysql
+        output_logs: true
+        detach: true
+        env:
+          MYSQL_DATABASE: "{{ mysql_database }}"
+          MYSQL_USER: "{{ mysql_user }}"
+          MYSQL_PASSWORD: "{{ mysql_password }}"
+          MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
+          DB_SERVER_HOST: "{{ db_server_host }}" 
+        networks: 
+          - name: zabbix-net
+        ports: 
+          - 10051:10051
+        state: started
+        restart_policy : unless-stopped
+
+    - name: Start container zabbix-web
+      community.docker.docker_container:
+        image: zabbix/zabbix-web-nginx-mysql:alpine-7.0-latest
+        name: zabbix-server-web-nginx-mysql
+        output_logs: true
+        detach: true
+        networks:
+          - name: zabbix-net
+        ports: 
+          - 80:8080
+        state: started
+        env:
+          ZBX_SERVER_HOST: "{{ zbx_server_host }}"
+          DB_SERVER_HOST: "{{ db_server_host }}"
+          MYSQL_DATABASE: "{{ mysql_database }}"
+          MYSQL_USER: "{{ mysql_user }}"
+          MYSQL_PASSWORD: "{{ mysql_password }}"
+          MYSQL_ROOT_PASSWORD: "{{ mysql_root_password }}"
+        restart_policy: unless-stopped
