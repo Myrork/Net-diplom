@@ -115,13 +115,15 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 ![alt text](https://github.com/Myrork/Net-diplom/blob/diplom-zabbix/images/all-created.png)
 
-![alt text](https://github.com/Myrork/Net-diplom/tree/images/hosts.png)
+![alt text](https://github.com/Myrork/Net-diplom/blob/diplom-zabbix/images/hosts.png)
 
-![alt text](https://github.com/Myrork/Net-diplom/tree/images/map-network.png)
+![alt text](https://github.com/Myrork/Net-diplom/blob/diplom-zabbix/images/map-network.png)
 
-![alt text](https://github.com/Myrork/Net-diplom/tree/images/zabbix-agent.png)
+![alt text](https://github.com/Myrork/Net-diplom/blob/diplom-zabbix/images/kibana.png)
 
-![alt text](https://github.com/Myrork/Net-diplom/tree/images/dashboard-web1.png)
+![alt text](https://github.com/Myrork/Net-diplom/blob/diplom-zabbix/images/zabbix-agent.png)
 
-![text](https://github.com/Myrork/Net-diplom/tree/images/dashboard-web2.png)
+![text](https://github.com/Myrork/Net-diplom/blob/diplom-zabbix/images/dashboard-web1.png)
+
+![text](https://github.com/Myrork/Net-diplom/blob/diplom-zabbix/images/dasboard-web2.png)
 
