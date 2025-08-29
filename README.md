@@ -115,6 +115,8 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 ![alt text](https://github.com/Myrork/Net-diplom/tree/images/all-created.png)
 
+![gh](https://img.reg.ru/faq/chto-takoe-domen-pervogo-urovnja-1-140220.png)
+
 ![alt text](https://github.com/Myrork/Net-diplom/tree/images/hosts.png)
 
 ![alt text](https://github.com/Myrork/Net-diplom/tree/images/map-network.png)
