@@ -113,15 +113,15 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 ## Результаты дипломной работы
 В  результате выполнения дипломной работы были написаны конфигурационный файл с развертывание нескольких виртуальный машин, на которых были установлены, с помощью ansible-playbook, zabbix, zabbix-agent, elasticsearsh, kibana, filebeat, и nginx, а так же было налажено их взаимодействие.
 
-![alt text](https://github.com/Myrork/Net-diplom/tree/diplom-zabbix/images/all-created.png)
+![alt text](https://github.com/Myrork/Net-diplom/tree/images/all-created.png)
 
-![alt text](https://github.com/Myrork/Net-diplom/tree/diplom-zabbix/images/hosts.png)
+![alt text](https://github.com/Myrork/Net-diplom/tree/images/hosts.png)
 
-![alt text](https://github.com/Myrork/Net-diplom/tree/diplom-zabbix/images/map-network.png)
+![alt text](https://github.com/Myrork/Net-diplom/tree/images/map-network.png)
 
-![alt text](https://github.com/Myrork/Net-diplom/tree/diplom-zabbix/images/zabbix-agent.png)
+![alt text](https://github.com/Myrork/Net-diplom/tree/images/zabbix-agent.png)
 
-![alt text](https://github.com/Myrork/Net-diplom/tree/diplom-zabbix/images/dashboard-web1.png)
+![alt text](https://github.com/Myrork/Net-diplom/tree/images/dashboard-web1.png)
 
-![alt text](https://github.com/Myrork/Net-diplom/tree/diplom-zabbix/images/dashboard-web2.png)
+![text](https://github.com/Myrork/Net-diplom/tree/images/dashboard-web2.png)
 
