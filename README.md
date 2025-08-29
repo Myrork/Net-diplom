@@ -113,9 +113,7 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 ## Результаты дипломной работы
 В  результате выполнения дипломной работы были написаны конфигурационный файл с развертывание нескольких виртуальный машин, на которых были установлены, с помощью ansible-playbook, zabbix, zabbix-agent, elasticsearsh, kibana, filebeat, и nginx, а так же было налажено их взаимодействие.
 
-![alt text](https://github.com/Myrork/Net-diplom/tree/images/all-created.png)
-
-![gh](https://img.reg.ru/faq/chto-takoe-domen-pervogo-urovnja-1-140220.png)
+![alt text](https://github.com/Myrork/Net-diplom/blob/diplom-zabbix/images/all-created.png)
 
 ![alt text](https://github.com/Myrork/Net-diplom/tree/images/hosts.png)
 
